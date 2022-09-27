@@ -1,11 +1,24 @@
 {
   "name": "regexemail",
   "version": "1.0.0",
-  "description": "",
   "main": "extract.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GarwoD01/email_extraction---regex.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GarwoD01/email_extraction---regex/issues"
+  },
+  "homepage": "https://github.com/GarwoD01/email_extraction---regex#readme",
+  "description": ""
 }
