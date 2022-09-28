@@ -14,9 +14,7 @@ const email_re = /[A-Za-z0-9._%+-]+@([a-z0-9-]+[.])+[a-z]+/;
 // followed by "@" symbol - @([a-z0-9-]+[.]) followed by letters/numbers/certain symbols, followed by "."  ...
 // last part of the email - [a-z]+ final part of address
 
-const softwire = /@(<softwire.com>\w+)/mg;
-//const softwire = /@([<softwire.com>]).*?\1/g;
-
+const all_emails = /[A-Za-z0-9._%+-]+@+(?<emails>\w+)+[.]+[a-z]+/mg;
 
 text.split("\n").forEach(
     processOneLine
@@ -37,10 +35,10 @@ function processOneLine(line, email_search) {
     // add code here to find emails in the line 
     if (email_search) {
         emailCount++;
-        console.log(email_search);
+        //console.log(email_search);
     }
 
-    for (const match of line.matchAll(softwire)) {
-        console.log(`Processed ${match.groups.softwire.com}`);
+    for (const match of line.matchAll(all_emails)) {
+        console.log(`Processed ${match.groups.emails} email.`);
     }
 }
