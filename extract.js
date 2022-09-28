@@ -5,6 +5,7 @@ let text = fs.readFileSync("sample.txt", "utf-8")
 console.log("read", text.length, "characters.");
 
 // example of information gathered
+let domains = {};
 let lineCount = 0;
 let emailCount = 0;
 
@@ -14,12 +15,9 @@ const email_re = /[A-Za-z0-9._%+-]+@([A-Za-z0-9]+[.])+[a-z]+/;
 // followed by "@" symbol - @([a-z0-9-]+[.]) followed by letters/numbers/certain symbols, followed by "."  ...
 // last part of the email - [a-z]+ final part of address
 
-
 // ([A-Za-z0-9._%+-])+@((?:[A-Za-z0-9]+[.]))+[a-z]+
 
 const all_domains = /[A-Za-z0-9._%+-]+@+(?<domain>\w+)+[.]+[a-z]+/mg;
-
-let domains = {};
 
 text.split("\n").forEach(
     processOneLine
@@ -27,18 +25,16 @@ text.split("\n").forEach(
 
 console.log(`Processed ${lineCount} lines.`);
 console.log(`Processed ${emailCount} emails.`);
-
 console.log(domains);
 
+fs.writeFileSync("domains.txt", JSON.stringify(domains), 'utf8');
 
 // extract information from one line
 // and update global variables
 function processOneLine(line, email_search) {
     // example of gathering information
-
     lineCount++;
     email_search = line.search(email_re);
-
 
     // add code here to find emails in the line 
     if (email_search) {
