@@ -9,12 +9,17 @@ let lineCount = 0;
 let emailCount = 0;
 
 // <local>@<domain>
-const email_re = /[A-Za-z0-9._%+-]+@([a-z0-9-]+[.])+[a-z]+/;
+const email_re = /[A-Za-z0-9._%+-]+@([A-Za-z0-9]+[.])+[a-z]+/;
 // first part of email address - [A-Z0-9._%+-] can be letters/numbers/symbols
 // followed by "@" symbol - @([a-z0-9-]+[.]) followed by letters/numbers/certain symbols, followed by "."  ...
 // last part of the email - [a-z]+ final part of address
 
-const all_emails = /[A-Za-z0-9._%+-]+@+(?<emails>\w+)+[.]+[a-z]+/mg;
+
+// ([A-Za-z0-9._%+-])+@((?:[A-Za-z0-9]+[.]))+[a-z]+
+
+const all_domains = /[A-Za-z0-9._%+-]+@+(?<domain>\w+)+[.]+[a-z]+/mg;
+
+let domains = {};
 
 text.split("\n").forEach(
     processOneLine
@@ -22,6 +27,9 @@ text.split("\n").forEach(
 
 console.log(`Processed ${lineCount} lines.`);
 console.log(`Processed ${emailCount} emails.`);
+
+console.log(domains);
+
 
 // extract information from one line
 // and update global variables
@@ -38,7 +46,9 @@ function processOneLine(line, email_search) {
         //console.log(email_search);
     }
 
-    for (const match of line.matchAll(all_emails)) {
-        console.log(`Processed ${match.groups.emails} email.`);
+    for (const match of line.matchAll(all_domains)) {
+        //console.log(`Processed ${match.groups.domain} domain.`);
+        domains[match.groups.domain] ||= 0;
+        domains[match.groups.domain]++;
     }
 }
